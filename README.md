@@ -1,8 +1,9 @@
 <h1 >Introduction</h1>
 - This document is to provide the technical details about the set up and configuration of Kubernetes cluster and the application will run in the cluster and the traffic route with 70 30 % weight by using a load balancer and for monitoring the setup will be done with Prometheus   , for the incoming traffic distribution checked the load balancing algorithms which include destination hashing ,round-robin for the Kubernetes service however, they are still not granular enough to distribute the traffic by Percentage weight to 70 and 30 , need to check solutions like istio which are out-of-the-box Kubernetes.. The installation details and the code are provided in the GIT repository which will be attached in the submission portal.  
-<h3>-Pre-Requisite -:</h3>
+<h3>-Pre-Requisite </h3>
+<h4>The infrastructure will be AWS</h4>
 
-- 3, X86 architecture server.
+- 3, X86 architecture server(T2.medium server).
 
 - Minimum 2 CPU and 4 GB RAM for each server.
   
