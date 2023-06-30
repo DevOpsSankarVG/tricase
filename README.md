@@ -13,6 +13,7 @@ The incoming traffic distribution will be routed with different load balancing a
 - Centos 7.9 AMI image.
   
 - Traffic exposed to internet.
+  
 - Install wget git mlocate in the server
   
 <h2>Additional Information-:</h2>
@@ -27,7 +28,7 @@ Automation is done for the provisioning of the infrastructure, and the code is p
 <h2>Kubernetes setup in master and worker node -:</h2>
 
 <h3>Check the swap is disabled and commented in fstab</h3>
--swapoff -a
+- swapoff -a
 
 - Uninstall the docker, older versions of Docker went by the names of docker or docker-engine. Uninstall any such older versions before attempting to install a new version, along with associated dependencies.
 
@@ -47,10 +48,12 @@ We are using containerd as the CRI
 -systemctl enable containerd
 
 Comment the option  “disabled plugins “  and other information in provided in the containerd configuration file so that the CRI  pluging is enabled , if its in disabled state there will be error reports while initializing the pods
--vi  /etc/containerd/config.toml
--#disabled_plugins = ["cri"]
+
+vi  /etc/containerd/config.toml
+disabled_plugins = ["cri"]
 
 <h3> to mitigate the error execution phase prefight  .while building the master server with kubeadm update the kernel values </h3> 
+
 -cat << EOF | sudo tee /etc/sysctl.d/k8c.conf
 -net.bridge.bridge-nf-call-iptables = 1
 -net.ipv4.ip_forward                = 1
