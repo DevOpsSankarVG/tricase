@@ -32,26 +32,21 @@ Automation is done for the provisioning of the infrastructure, and the code is p
 - Uninstall the docker, older versions of Docker went by the names of docker or docker-engine. Uninstall any such older versions before attempting to install a new version, along with associated dependencies.
 
 -Yum remove docker*
+<h3>Container run time configuration</h3>
 
-<h3>docker-ce repository set up for centos</h3> 
+We are using containerd as the CRI
 
 -yum install -y yum-utils
 
 -yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
-<h3>We are using containerd as the CRI</h3>
-
--yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
--systemctl start docker
-
--systemctl enable docker
+-yum install -y containerd.io
 
 -systemctl start containerd
 
 -systemctl enable containerd
 
-<h3>Comment the option  “disabled plugins “ CRI in the containerd configuration file so that the CRI  pluging is enabled , if its in disabled state there will be error reports while initializing the pods</h3>
+Comment the option  “disabled plugins “  and other information in provided in the containerd configuration file so that the CRI  pluging is enabled , if its in disabled state there will be error reports while initializing the pods
 -vi  /etc/containerd/config.toml
 -#disabled_plugins = ["cri"]
 
