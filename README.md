@@ -3,27 +3,27 @@
 This document is to provide the technical details about the set-up and configuration of the Kubernetes cluster, there will be an application will run in the cluster and the traffic to the application route with 70 30 % weight by using an ingress load balancer and an ingress controller, for logging and monitoring setup will be done with Prometheus and graffana.
 
 The incoming traffic distribution will be routed with different load balancing algorithms which include destination hashing ,round-robin for the Kubernetes , the traffic percentage weight to 70 and 30 will be established with ingress controller solutions like istio, metallb or nginx. The installation details and the code are provided in the GIT repository which will be attached to the submission portal.  
-<h3>-Pre-Requisite </h3>
+<h3>Pre-Requisite </h3>
 <h4>The infrastructure will be hosting in  AWS Cloud</h4>
 
-- 3, X86 architecture server(T2.medium server).
+- 3 nodes, X86 architecture server(T2.medium server).
 
 - Minimum 2 CPU and 4 GB RAM for each server.
   
 - Centos 7.9 AMI image.
   
-- Traffic exposed to internet.
+- Traffic exposed to the internet and port exposed as required.
   
 - Install wget git mlocate in the server
   
 <h2>Additional Information-:</h2>
-Kubernetes is a container orchestration platform which is used to automate deployment, scaling, and management of containerized application.  The key features of Kubernetes which includes container orchestration, auto scaling , service discovery and load balancing , self-healing , rolling updates and rollbacks , storage orchestration configuration management etc.
+Kubernetes is a container orchestration platform which is used to automate the deployment, scaling, and management of containerized applications.  The key features of Kubernetes include container orchestration, auto-scaling, service discovery and load balancing*, self-healing, rolling updates and rollbacks, storage orchestration configuration management etc.
 
--We can set up the Kubernetes cluster in different ways The Kubernetes cluster is installed with kubeadm using the yum repository .we will start with installation the OS in the server ,install the centos image in the server ,Centos OS is an open source OS and for X86 /64 architecture  docker engine repository  is supported , for running and communicating with the application services necessary network setting need to be conducted ,  open the ports (in the master TCP node port 6443, 2379 ,2380, 10250 ,10251 10252, 10255 and in worker node TCP port 6783, 10250 ,10255 ,30000 to 32767 need to opened ) . The architecture of this Kubernetes cluster consists of one master nodes and two worker nodes. 
+-We can set up the Kubernetes cluster in different ways The Kubernetes cluster is installed with kubeadm using the yum repository. we will start with the 6installation the OS in the server*, install the centos image in the server, Centos OS is an open source OS and for X86 /64 architecture *docker engine repository is supported, for running and communicating with the application services necessary network setting need to be conducted,  open the ports (in the master TCP node port 6443, 2379,2380, 10250,10251 10252, 10255 and in worker node TCP port 6783, 10250,10255,30000 to 32767 need to opened ). The architecture of this Kubernetes cluster consists of one master node and two worker nodes. 
 
-We will assume that the server provisioning is completed, and user is able to access the server. 
+We will assume that the server provisioning is completed, and the /user is able to access the server. 
 
-Automation is done for the provisioning of the infrastructure, and the code is provided in the git repository , the name of the file is  main.tf , variable and the secrets are not added in the file .
+Automation is done for the provisioning of the infrastructure, and the code is provided in the git repository, the name of the file is main.tf6, variable and the secrets are not added in the file.
 
 <h2>Kubernetes setup in master and worker node -:</h2>
 
@@ -47,7 +47,7 @@ We are using containerd as the CRI
 
 -systemctl enable containerd
 
-Comment the option  “disabled plugins “  and other information in provided in the containerd configuration file so that the CRI  pluging is enabled , if its in disabled state there will be error reports while initializing the pods
+Remove the content and other * other information is provided in the containerd configuration file so that the CRI  plugin is enabled, if it's in a 9disabled state there will be error reports while initializing the pods
 
 vi  /etc/containerd/config.toml
 disabled_plugins = ["cri"]
