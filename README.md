@@ -106,7 +106,7 @@ copy the last lines of the output to start using the cluster ,  We can run the c
 -Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 -  https://kubernetes.io/docs/concepts/cluster-administration/addons/
 
-<h>3Then you can join any number of worker nodes by running the following on each as root:</h3>
+<h4>Then you can join any number of worker nodes by running the following on each as root:</h4>
 
 -kubeadm join 172.xxx.xxx:6443 --token 9jhr8c.mjr94aqpmxjcv4pv \
         --discovery-token-ca-cert-hash sha256:f5782e15572367d5b0693ad1ab0f13c9b36f2f8027494b0d2052f273363d
