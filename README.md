@@ -90,7 +90,7 @@ If the Selinux ix in enabled state there will be network issues while deploying 
 
 -kubeadm init --apiserver-advertise-address=(Private IP of master node) --pod-network-cidr=192.168.0.0/16 --cri-socket unix:///var/run/cri-dockerd.sock
 
-<h3>copy the last lines of the output to start using the cluster ,  We can run the command as regular user or as a root user output .Once the cluster is started deploy a pod network to the cluster, here we are using calico as network addons Then you can join any number of worker nodes by running the “kube join “command followed with options.</h3> 
+copy the last lines of the output to start using the cluster ,  We can run the command as regular user or as a root user output .Once the cluster is started deploy a pod network to the cluster, here we are using calico as network addons Then you can join any number of worker nodes by running the “kube join “command followed with options. 
 
 -Your Kubernetes control-plane has initialized successfully!
 -To start using your cluster, you need to run the following as a regular user: 
