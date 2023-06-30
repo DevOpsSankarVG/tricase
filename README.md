@@ -76,7 +76,9 @@ Automation is done for the provisioning of the infrastructure, and the code is p
 -exclude=kubelet kubeadm kubectl
 -EOF
 
-<h3>Disbale the selinuex so that no issues will encounter while deploying the Kubernetes. Once the configuration file updated with below command need to reboot the nodes so that the selinux settings will apply to the nodes.</h3>
+<h3>Disbale the SELinux </h3>
+
+If the Selinux ix in enabled state there will be network issues while deploying the Kubernetes. To mitigate these issue we need to disable the Selinux all nodes .Once the configuration file updated with below command need to reboot the nodes so that the selinux settings will apply to the nodes
  
 -sudo sed -i 's/^SELINUX=enforcing$/SELINUX=disabled/' /etc/selinux/config
 
@@ -124,7 +126,7 @@ Kubectl apply -f loadbalancer.yaml
 #now expose the port of the container to the node port by executing below command 
 kubectl expose deployment nginx --name=nginxsvc --target-port=80 --type=NodePort --port=80
 
-# The container index.html will have separate content, once the container are deployed in the worker node we will be changing the content of the index.html of each file, this will be done by copying the index.html file from the master node to the respective container by executing the command 
+#The container index.html will have separate content, once the container are deployed in the worker node we will be changing the content of the index.html of each file, this will be done by copying the index.html file from the master node to the respective container by executing the command 
 #kubectl cp <localNode/file> podName:destinationDir -c <Containername>
 kubectl cp index.html nginx-77b4fdf86c-p2l98:/usr/share/nginx/html/ -c nginx
 
