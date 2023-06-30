@@ -1,11 +1,14 @@
 <h1 >Introduction</h1>
 - This document is to provide the technical details about the set up and configuration of Kubernetes cluster and the application will run in the cluster and the traffic route with 70 30 % weight by using a load balancer and for monitoring the setup will be done with Prometheus   , for the incoming traffic distribution checked the load balancing algorithms which include destination hashing ,round-robin for the Kubernetes service however, they are still not granular enough to distribute the traffic by Percentage weight to 70 and 30 , need to check solutions like istio which are out-of-the-box Kubernetes.. The installation details and the code are provided in the GIT repository which will be attached in the submission portal.  
--Pre-Requisite -:
--3, X86 architecture server.
--Minimum 2 CPU and 4 GB RAM for each server.
--Centos 7.9 AMI image.
--Traffic exposed to internet.
--Install wget git mlocate in the server
+<h3>-Pre-Requisite -:</h3>
+- 3, X86 architecture server.
+
+- Minimum 2 CPU and 4 GB RAM for each server.
+
+- Centos 7.9 AMI image.
+
+- Traffic exposed to internet.
+- Install wget git mlocate in the server
 <h2>Additional Information-:</h2>
 Kubernetes is a container orchestration platform which is used to automate deployment, scaling, and management of containerized application.  The key features of Kubernetes which includes container orchestration, auto scaling , service discovery and load balancing , self-healing , rolling updates and rollbacks , storage orchestration configuration management etc  .
 -We can set up the Kubernetes cluster in different ways The Kubernetes cluster is installed with kubeadm using the yum repository .we will start with installation the OS in the server ,install the centos image in the server ,Centos OS is an open source OS and for X86 /64 architecture  docker engine repository  is supported , for running and communicating with the application services necessary network setting need to be conducted ,  open the ports (in the master TCP node port 6443, 2379 ,2380, 10250 ,10251 10252, 10255 and in worker node TCP port 6783, 10250 ,10255 ,30000 to 32767 need to opened ) . The architecture of this Kubernetes cluster consists of one master nodes and two worker nodes. 
