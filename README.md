@@ -1,5 +1,7 @@
 <h1 >Introduction</h1>
-- This document is to provide the technical details about the set up and configuration of Kubernetes cluster and the application will run in the cluster and the traffic route with 70 30 % weight by using a load balancer and for monitoring the setup will be done with Prometheus   , for the incoming traffic distribution checked the load balancing algorithms which include destination hashing ,round-robin for the Kubernetes service however, they are still not granular enough to distribute the traffic by Percentage weight to 70 and 30 , need to check solutions like istio which are out-of-the-box Kubernetes.. The installation details and the code are provided in the GIT repository which will be attached in the submission portal.  
+- This document is to provide the technical details about the set-up and configuration of the Kubernetes cluster, there will be an application will run in the cluster and the traffic to the application route with 70 30 % weight by using an ingress load balancer and an ingress controller, for logging and monitoring setup will be done with Prometheus and graffana.
+
+The incoming traffic distribution will be routed with different load balancing algorithms which include destination hashing ,round-robin for the Kubernetes , the traffic percentage weight to 70 and 30 will be established with ingress controller solutions like istio, metallb or nginx. The installation details and the code are provided in the GIT repository which will be attached to the submission portal.  
 <h3>-Pre-Requisite </h3>
 <h4>The infrastructure will be hosting in  AWS Cloud</h4>
 
