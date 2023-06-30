@@ -35,7 +35,7 @@ Automation is done for the provisioning of the infrastructure, and the code is p
 
 -yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 
-<h3>#We are using containerd as the CRI</h3>
+<h3>We are using containerd as the CRI</h3>
 
 -yum install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
