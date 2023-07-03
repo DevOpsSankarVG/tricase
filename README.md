@@ -106,16 +106,17 @@ copy the last lines of the output to start using the cluster ,  We can run the c
 <h3>Alternatively, if you are the root user, you can run:</h3>
  - export KUBECONFIG=/etc/kubernetes/admin.conf
 
-<h3>You should now deploy a pod network to the cluster.</h3>
--Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
--  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+Deploy a pod network to the cluster.
 
-<h4>Then you can join any number of worker nodes by running the following on each as root:</h4>
+- Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+- https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Join any number of worker nodes by running the following on each as root in the worker nodes.
 
 -kubeadm join 172.xxx.xxx:6443 --token 9jhr8c.mjr94aqpmxjcv4pv \
         --discovery-token-ca-cert-hash sha256:f5782e15572367d5b0693ad1ab0f13c9b36f2f8027494b0d2052f273363d
 
-#Installing the pod network to the cluster by using “calico”, this add is suitable for the interconnecting with the pods and if we are planning for the cluster with less than 50 nodes below are the steps to setup the calico.
+Installing the pod network to the cluster by using “calico”, this add is suitable for the interconnecting with the pods and if we are planning for the cluster with less than 50 nodes below are the steps to setup the calico.
 -curl https://raw.githubusercontent.com/projectcalico/calico/v3.26.0/manifests/calico.yaml -O
 -kubectl apply -f calico.yaml 
 
