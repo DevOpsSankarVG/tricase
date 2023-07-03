@@ -25,15 +25,17 @@ We will assume that the server provisioning is completed, and the /user is able 
 
 Automation is done for the provisioning of the infrastructure, and the code is provided in the git repository, the name of the file is main.tf6, variable and the secrets are not added in the file.
 
-<h2>Kubernetes setup in master and worker node -:</h2>
+<h2>Kubernetes Infrastructre setup -:</h2>
 
-<h3>Check the swap is disabled and commented in fstab</h3>
+As per the requirement there will be one master node and two worker node .The belwo documentation is applied for manually installing the application. 
+
+<h4>Check the swap is disabled and comented in fstab</h4>
 - swapoff -a
 
 - Uninstall the docker, older versions of Docker went by the names of docker or docker-engine. Uninstall any such older versions before attempting to install a new version, along with associated dependencies.
 
 -Yum remove docker*
-<h3>Container run time configuration</h3>
+<h4>Container run time configuration</h4>
 
 We are using containerd as the CRI
 
@@ -52,7 +54,7 @@ Remove the content and other * other information is provided in the containerd c
 vi  /etc/containerd/config.toml
 disabled_plugins = ["cri"]
 
-<h3> to mitigate the error execution phase prefight  .while building the master server with kubeadm update the kernel values </h3> 
+To mitigate the error execution phase prefight  .while building the master server with kubeadm update the kernel values the ip forwarding and iptable need to be be modifed at the kernal level 
 
 -cat << EOF | sudo tee /etc/sysctl.d/k8c.conf
 -net.bridge.bridge-nf-call-iptables = 1
@@ -64,10 +66,12 @@ disabled_plugins = ["cri"]
 -overlay
 -br_netfilter
 -EOF
-<h3>to make the update in the kernel</h3> 
+
+once the details provided update the kernel 
 -sysctl --system
 
-<h3>configure the yum repository to install the kubelet kubeadm kubectl</h3>
+Install the kubelet kubeadm kubectl:
+
 -cat <<EOF | sudo tee /etc/yum.repos.d/kubernetes.repo
 -[kubernetes]
 -name=Kubernetes
@@ -78,7 +82,7 @@ disabled_plugins = ["cri"]
 -exclude=kubelet kubeadm kubectl
 -EOF
 
-<h3>Disbale the SELinux </h3>
+<h4>Disbale the SELinux </h4>
 
 If the Selinux ix in enabled state there will be network issues while deploying the Kubernetes. To mitigate these issue we need to disable the Selinux all nodes .Once the configuration file updated with below command need to reboot the nodes so that the selinux settings will apply to the nodes
  
@@ -88,7 +92,7 @@ If the Selinux ix in enabled state there will be network issues while deploying 
 -sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 -systemctl enable kubelet
 
-<h3>initialize the master node control plane  by running the “kubeadm init “ command followed by the required options, below is the command,</h3>
+<h4>initialize the master node control plane  by running the “kubeadm init “ command followed by the required options, below is the command,</h4>
 
 -kubeadm init --apiserver-advertise-address=(Private IP of master node) --pod-network-cidr=192.168.0.0/16 --cri-socket unix:///var/run/cri-dockerd.sock
 
@@ -121,15 +125,17 @@ copy the last lines of the output to start using the cluster ,  We can run the c
 
 - The two containers are deployed with a deployment file and the replica was provided as two pods and the label is provided as nginx .as per the requirement the image used to deploy the container is nginx:1.24.0. The code is provided in the GIT HUB.  have used the load balancer to distribute the traffic node port, a service is initiated with the type Loadbalancer to map the container port and the node port.
 the files are -:
+
 deploy-nginx.yaml
 kubectl apply -f deploy-nginx.yaml
 Kubectl apply -f loadbalancer.yaml
 
-#now expose the port of the container to the node port by executing below command 
+-now expose the port of the container to the node port by executing below command 
+
 kubectl expose deployment nginx --name=nginxsvc --target-port=80 --type=NodePort --port=80
 
-#The container index.html will have separate content, once the container are deployed in the worker node we will be changing the content of the index.html of each file, this will be done by copying the index.html file from the master node to the respective container by executing the command 
-#kubectl cp <localNode/file> podName:destinationDir -c <Containername>
+The container index.html will have separate content, once the container are deployed in the worker node we will be changing the content of the index.html of each file, this will be done by copying the index.html file from the master node to the respective container by executing the command 
+kubectl cp <localNode/file> podName:destinationDir -c <Containername>
 kubectl cp index.html nginx-77b4fdf86c-p2l98:/usr/share/nginx/html/ -c nginx
 
 [root@KubeMaster tmp]# curl http://3.9.191.238:32221/
